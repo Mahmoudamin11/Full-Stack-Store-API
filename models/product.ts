@@ -1,6 +1,15 @@
 import { model, Schema } from "mongoose";
 
-const productSchema = new Schema({
+export interface ProductDocument extends Document {
+  name: string | RegExp;
+  company: string;
+  featured: boolean;
+  rating: number;
+  createdAt: Date;
+  price: number;
+}
+
+const productSchema = new Schema<ProductDocument>({
   name: {
     type: String,
     required: [true, "Product Name must be provided"],
@@ -31,4 +40,4 @@ const productSchema = new Schema({
 });
 
 
-export default model("Product", productSchema)
+export default model<ProductDocument>("Product", productSchema)
